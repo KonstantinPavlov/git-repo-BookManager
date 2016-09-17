@@ -53,7 +53,7 @@ public class AddImageServlet extends HttpServlet {
             e.printStackTrace();
         }
         try {
-            DAO.addImagetoBook(id,appPath,fileName);
+            DAO.addImagetoBook(id,savePath,fileName);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
