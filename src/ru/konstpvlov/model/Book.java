@@ -10,7 +10,7 @@ package ru.konstpvlov.model;
 public class Book {
 
     private int id;
-    private byte[] image;
+    private String imagePath;
     private String name;
     private String description;
     private String author;
@@ -36,12 +36,12 @@ public class Book {
         this.id = id;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getName() {
