@@ -52,7 +52,13 @@ public class AddImageServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        p.setImagePath(savePath + File.separator + fileName);
+        try {
+            DAO.addImagetoBook(id,appPath,fileName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //request.setAttribute("message", "Upload has been done successfully!");
         //getServletContext().getRequestDispatcher("/book.jsp").forward(

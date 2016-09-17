@@ -1,5 +1,8 @@
 package ru.konstpvlov.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,5 +100,22 @@ public class DAO {
             preparedStatement.executeUpdate();}
 
     }
+
+    public static void addImagetoBook(int id, String appPath, String fileName) throws SQLException, ClassNotFoundException, IOException {
+
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement("INSERT INTO images (name,image,id) VALUES (?,?,?)");
+            )
+        {
+            File file = new File(appPath + File.separator+fileName);
+            FileInputStream fileInputStream = new FileInputStream(file);
+            preparedStatement.setString(1,fileName);
+            preparedStatement.setBinaryStream(2,fileInputStream,(int) file.length());
+            preparedStatement.setInt(3,id);
+            preparedStatement.executeUpdate();
+            fileInputStream.close();
+            }
+    }
+
 
 }
