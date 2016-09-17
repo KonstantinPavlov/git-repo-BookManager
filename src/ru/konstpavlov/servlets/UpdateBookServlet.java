@@ -1,6 +1,6 @@
-package ru.konstpvlov.servlets;
+package ru.konstpavlov.servlets;
 
-import ru.konstpvlov.model.DAO;
+import ru.konstpavlov.model.DAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

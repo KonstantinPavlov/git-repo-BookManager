@@ -1,4 +1,4 @@
-package ru.konstpvlov.model;
+package ru.konstpavlov.model;
 
 import java.io.File;
 import java.io.FileInputStream;

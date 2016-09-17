@@ -1,6 +1,6 @@
-package ru.konstpvlov.servlets;
+package ru.konstpavlov.servlets;
 
-import ru.konstpvlov.model.DAO;
+import ru.konstpavlov.model.DAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,25 +12,24 @@ import java.sql.SQLException;
 
 /**
  * Created by Konstantin on 17.09.2016.
- *
- *
- *
  */
-@WebServlet(name = "BookListServlet",urlPatterns = "/booklist")
-public class BookListServlet extends HttpServlet {
+@WebServlet(name = "BookServlet",urlPatterns = "/book")
+public class BookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        int id = Integer.parseInt(request.getParameter("id"));
         try {
-            request.setAttribute("books", DAO.getData());
+            request.setAttribute("book", DAO.getBook(id));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        request.getRequestDispatcher("WEB-INF/BookList.jsp").forward(request,response);
+        request.getRequestDispatcher("WEB-INF/Book.jsp").forward(request,response);
+
     }
 }

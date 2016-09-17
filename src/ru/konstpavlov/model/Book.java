@@ -1,4 +1,4 @@
-package ru.konstpvlov.model;
+package ru.konstpavlov.model;
 
 /**
  * Created by Konstantin on 17.09.2016.
