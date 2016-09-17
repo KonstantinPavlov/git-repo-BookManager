@@ -22,5 +22,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.70" level="application_server_libraries" />
     <orderEntry type="library" name="javax.servlet:jstl:1.1.2" level="project" />
     <orderEntry type="library" name="jstl:jstl:1.2" level="project" />
+    <orderEntry type="library" name="org.ops4j.pax.tipi:org.ops4j.pax.tipi.mysql.connector.java:5.1.22.1" level="project" />
   </component>
 </module>

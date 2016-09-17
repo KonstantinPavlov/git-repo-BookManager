@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by Konstantin on 17.09.2016.
@@ -43,7 +44,14 @@ public class AddImageServlet extends HttpServlet {
         }
 
         int id = Integer.parseInt(request.getParameter("id"));
-        Book p=(Book) DAO.getBook(id);
+        Book p= null;
+        try {
+            p = (Book) DAO.getBook(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         p.setImagePath(savePath + File.separator + fileName);
 
         //request.setAttribute("message", "Upload has been done successfully!");

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Created by Konstantin on 17.09.2016.
@@ -22,7 +23,13 @@ public class UpdateBookServlet extends HttpServlet {
         String description = request.getParameter("description");
         String author= request.getParameter("author");
 
-        DAO.updateBook(id,name,description,author);
+        try {
+            DAO.updateBook(id,name,description,author);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         response.sendRedirect("/booklist");
     }
 

@@ -1,5 +1,6 @@
 package ru.konstpvlov.model;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,56 +12,90 @@ import java.util.List;
  */
 public class DAO {
 
-   static List<Book> data = new ArrayList<>();
 
-    static {
-        data.add(new Book(1,"Head First Java","Изучаем Java Год: 2012","Кэти Сьерра, Берт Бейтс"));
-        data.add(new Book(2,"Test Driven Development","Test-driven development (TDD) – разработка через тестирование.","Kent Beck"));
-        data.add(new Book(3,"Effective Java","Java. Эффективное программирование, 2-е издание","Joshua Bloch"));
-        data.add(new Book(4,"The Pragmatic Programmer","The Pragmatic Programmer. From Journeyman to Master / Программист-прагматик."," Andrew Hunt,David Thomas"));
+    public static Connection getConnection () throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/bookmanager","root","root");
     }
 
-    public static List<Book> getData() {
-        return data;
+    public static List<Book> getData() throws SQLException, ClassNotFoundException {
+
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,name,description,author FROM books");
+                ResultSet resultSet = preparedStatement.executeQuery();)
+        {
+            ArrayList<Book> books = new ArrayList<>();
+            while (resultSet.next())
+            {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String desc = resultSet.getString("description");
+                String author = resultSet.getString("author");
+                books.add(new Book(id,name,desc,author));
+            }
+            return books;
+        }
     }
 
-    public static void addBook(String name, String description, String author)
-    {
-        data.add(new Book(data.size(),name,description,author));
+    public static void addBook(String name, String description, String author) throws SQLException, ClassNotFoundException {
+
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement("INSERT INTO  books (name,description,author) VALUES (?,?,?)");)
+        {
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,description);
+            preparedStatement.setString(3,author);
+            preparedStatement.executeUpdate();}
+
     }
 
-    public static void deleteBook(int id)
-    {
-        Book p =null;
+    public static void deleteBook(int id) throws SQLException, ClassNotFoundException {
 
-        for (Book book: data) {
-            if (book.getId()==id)
-                p=book;
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement("DELETE FROM books WHERE id=?");)
+        {
+
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();}
+
+    }
+
+    public static Object getBook(int id) throws SQLException, ClassNotFoundException {
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT name,description,author FROM books WHERE id=?");
+                )
+        {
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Book book=null;
+            while (resultSet.next())
+            {
+
+                String name = resultSet.getString("name");
+                String desc = resultSet.getString("description");
+                String author = resultSet.getString("author");
+                book = new Book(id,name,desc,author);
+            }
+            return book;
         }
 
-        if (p!=null)
-            data.remove(p);
     }
 
-    public static Object getBook(int id) {
+    public static void updateBook(int id,String name, String description, String author) throws SQLException, ClassNotFoundException {
 
-        Book p =null;
-
-        for (Book book: data) {
-            if (book.getId()==id)
-                p=book;
-        }
-        return p;
-
-    }
-
-    public static void updateBook(int id,String name, String description, String author) {
-
-        Book p = (Book) getBook(id);
-        p.setAuthor(author);
-        p.setName(name);
-        p.setDescription(description);
-
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement("UPDATE books SET name = ?,description=?, author=?  WHERE id=?");)
+        {
+            preparedStatement.setString(1,name);
+            preparedStatement.setString(2,description);
+            preparedStatement.setString(3,author);
+            preparedStatement.setInt(4,id);
+            preparedStatement.executeUpdate();}
 
     }
+
 }
