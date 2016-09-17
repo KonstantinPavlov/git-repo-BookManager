@@ -13,6 +13,7 @@
 </head>
 <body>
 <h2>${book.name}</h2>
+<p><a href="/booklist"> Назад к списку книг </a> </p>
     <form action="/update?id=${book.id}" method="POST" accept-charset="UTF-8">
         <br>Book name:
         <br/><input style="width:400px;" name="name" type="text" required value="${book.name}" >
@@ -30,7 +31,7 @@
 </form>
 
 <p></p>
-<img src=${book.imagePath}>
+<img src="/imageServlet">
 
 </body>
 </html>

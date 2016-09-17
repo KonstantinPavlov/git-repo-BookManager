@@ -3,6 +3,7 @@ package ru.konstpvlov.model;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,4 +121,18 @@ public class DAO {
     }
 
 
+    public static InputStream getImage(int id) throws SQLException, ClassNotFoundException {
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement= connection.prepareStatement("SELECT  image FROM images WHERE id=?");
+        ) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+            {
+                return resultSet.getBinaryStream(1);
+            }
+        }
+
+        return null;
+    }
 }
