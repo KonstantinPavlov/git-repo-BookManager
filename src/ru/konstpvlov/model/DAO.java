@@ -114,6 +114,7 @@ public class DAO {
             preparedStatement.setInt(3,id);
             preparedStatement.executeUpdate();
             fileInputStream.close();
+            file.delete();
             }
     }
 
