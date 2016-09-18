@@ -26,10 +26,7 @@
     </tr>
 <c:forEach items="${books}" var="book">
 <tr>
-
-
     <td width="200"><c:out  value ="${book.name}"/>  </td>
-
     <td width="250"><c:out value ="${book.description}"/></td>
     <td width="100"><c:out value ="${book.author}"/></td>
     <td>
@@ -46,7 +43,9 @@
 </c:forEach>
 </table>
 <p> </p>
-
-
+<form action="/booklist" method="GET" accept-charset="UTF-8">
+    <input name="name" type="text"  value="${bookName}">
+    <input type="submit" value="Search Book" >
+</form>
 </body>
 </html>

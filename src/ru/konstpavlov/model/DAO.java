@@ -29,14 +29,30 @@ public class DAO {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/bookmanager","root","root");
     }
 
-    public static List<Book> getData() throws SQLException, ClassNotFoundException {
+    public static List<Book> getData(String bookName) throws SQLException, ClassNotFoundException {
 
+        String prepStatText="";
+        boolean hasParamets=false;
+        if (bookName ==null )
+        {
+             prepStatText = "SELECT id,name,description,author FROM books";
+        }
+        else
+        {
+            prepStatText = "SELECT id,name,description,author FROM books WHERE name LIKE ?";
+            hasParamets=true;
+        }
 
         try (
                 Connection connection = getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT id,name,description,author FROM books");
-                ResultSet resultSet = preparedStatement.executeQuery();)
+                PreparedStatement preparedStatement = connection.prepareStatement(prepStatText);
+                )
         {
+            if (hasParamets)
+            {
+                preparedStatement.setString(1,"%"+bookName+"%");
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Book> books = new ArrayList<>();
             while (resultSet.next())
             {

@@ -11,12 +11,12 @@
     <title>Add new book</title>
 </head>
 <body>
-<p><a href="/booklist"> Back to the list</a> </p>
+<p><a href="/booklist">Back to the list</a> </p>
 
 <table border="3" >
     <form action="/add" method="POST" accept-charset="UTF-8">
         You can add Book here:
-        <tr  >
+        <tr>
             <td colspan="2">Name :
                 <input name="name" type="text" required>
             </td>

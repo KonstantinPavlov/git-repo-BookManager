@@ -20,12 +20,18 @@ import java.sql.SQLException;
 public class BookListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
+        String name = request.getParameter("name");
+        request.setAttribute("bookName",name);
         try {
-            request.setAttribute("books", DAO.getData());
+            request.setAttribute("books", DAO.getData(name));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
