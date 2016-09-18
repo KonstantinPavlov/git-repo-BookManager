@@ -11,10 +11,29 @@
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
 <head>
     <title>Book Manager</title>
+    <style>
+        h1 {
+            font-size: 50px;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+
+        }
+        body {
+            background: url(Background-2.jpg) repeat-y,
+            #fcfff6 url(Background-2.jpg) repeat-y 100% 0;
+            background-size: cover;
+        }
+        .layer {
+            margin: 5%;
+            padding-left: 5%;
+        }
+    </style>
 </head>
 <body>
+<div class="layer">
+<table  width="750" cellpadding="5" cellspacing="0" border="0">
+    <tr>
+        <td>
 <h1>Book manager </h1>
-
 <a href="/addNew"> <img src="add.png" width="50" height="50">  Add new Book</a>
 <p> </p>
 <form action="/booklist" method="GET" accept-charset="UTF-8">
@@ -32,28 +51,30 @@
     </c:choose>
 
     <p><input name="searchValue" type="text"  value="${searchValue}">
-    <input type="submit" value="Search Book" > <a href="/booklist">Очистить поиск</a> </p>
+                <button>
+            <img src="find.png" width="30" height="30" alt="Найти книгу" title="Найти книгу" style="vertical-align:middle">        </button>
+           <a href="/booklist">
+
+       <img src="rollback.png" width="30" height="30" alt="Очистить поиск" title="Очистить поиск" style="vertical-align:middle"></a>
 </form>
 
-<table border="1">
+<table width="600" border="1">
     <tr>
-        <td>Name</td>
-        <td>Description</td>
-        <td>Author</td>
-        <td>Edit</td>
-        <td>Delete</td>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
 <c:forEach items="${books}" var="book">
 <tr>
-    <td width="200"><c:out  value ="${book.name}"/>  </td>
-    <td width="250"><c:out value ="${book.description}"/></td>
-    <td width="100"><c:out value ="${book.author}"/></td>
-    <td>
+    <td width="160"><c:out  value ="${book.name}"/>  </td>
+    <td width="200"><c:out value ="${book.author}"/></td>
+    <td width="50" align="center">
         <a href="book?id=${book.id}">
             <img src="edit.png" width="40" height="40">
         </a>
     </td>
-    <td>
+    <td width="50" align="center">
         <a href="delete?id=${book.id}">
             <img src="delete.png" width="40" height="40">
         </a>
@@ -62,5 +83,16 @@
 </c:forEach>
 </table>
 </form>
+    </td>
+        <td width="30">
+
+        </td>
+
+        <td width="360" align="center">
+
+        </td>
+    </tr>
+</table>
+</div>
 </body>
 </html>
