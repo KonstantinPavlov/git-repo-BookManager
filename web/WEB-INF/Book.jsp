@@ -27,7 +27,7 @@
         <br/><input type="submit" value="Update Book" >
     </form>
 
-<p> Add an image : </p>
+<p> Add an image :</p>
 <form action="/addimage?id=${book.id}" enctype="multipart/form-data" method="POST">
     <p><input type="file" accept="image/*" name="image"> <input type="submit" value="Отправить"></p>
 </form>
