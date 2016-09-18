@@ -13,6 +13,7 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 
 /**
  * Created by Konstantin on 17.09.2016.
@@ -23,35 +24,33 @@ import java.sql.SQLException;
         maxRequestSize=1024*1024*50)   // 50MB
 public class AddImageServlet extends HttpServlet {
 
-    private static final String SAVE_DIR = "uploadFiles";
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String appPath = request.getServletContext().getRealPath("");
-        // constructs path of the directory to save uploaded file
-        String savePath = appPath + File.separator + SAVE_DIR;
+        // создаем путь, где будем хранить файлы
+        String savePath = appPath + File.separator + DAO.getSaveDir();
 
-        // creates the save directory if it does not exists
+        // создаем папку, если ее нет
         File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
-
-            String fileName="";
+        // сохраняем файл
+        String fileName="";
         for (Part part : request.getParts()) {
             fileName = extractFileName(part);
+            // генерируем уникальное имя
+            UUID uniqFileName = UUID.randomUUID();
+            // Определеим расширение файла, экранируем точку
+            String[] vals = fileName.split("\\.");
+            String uniqFile = uniqFileName.toString().replaceAll("-","") +"."+vals[vals.length-1];
+            fileName = uniqFile;
             part.write(savePath + File.separator + fileName);
         }
 
         int id = Integer.parseInt(request.getParameter("id"));
-        Book p= null;
-        try {
-            p = (Book) DAO.getBook(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         try {
             DAO.addImagetoBook(id,savePath,fileName);
         } catch (SQLException e) {
@@ -59,13 +58,7 @@ public class AddImageServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        //request.setAttribute("message", "Upload has been done successfully!");
-        //getServletContext().getRequestDispatcher("/book.jsp").forward(
-         //       request, response);
-
         response.sendRedirect("/book?id="+id);
-        //image
 
     }
 

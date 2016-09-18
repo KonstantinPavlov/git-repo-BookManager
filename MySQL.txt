@@ -11,11 +11,10 @@ CREATE TABLE books(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
  CREATE TABLE images(
-     image_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-     name VARCHAR(50),
-     image LONGBLOB,
-     id INT NOT NULL ,
-     CONSTRAINT books_id_fk FOREIGN KEY (id) REFERENCES books (id)
+     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+     image VARCHAR(100),
+     book_id INT NOT NULL ,
+     CONSTRAINT book_id_fk FOREIGN KEY (book_id) REFERENCES books (id)
 
    );
 

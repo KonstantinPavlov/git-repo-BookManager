@@ -10,8 +10,8 @@ import java.io.IOException;
 /**
  * Created by Konstantin on 17.09.2016.
  */
-@WebServlet(name = "addNewServlet", urlPatterns = "/addNew")
-public class addNewServlet extends HttpServlet {
+@WebServlet(name = "addNewBookServlet", urlPatterns = "/addNew")
+public class addNewBookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }

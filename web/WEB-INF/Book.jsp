@@ -1,4 +1,5 @@
-<%--
+<%@ page import="ru.konstpavlov.model.DAO" %>
+<%@ page import="java.io.File" %><%--
   Created by IntelliJ IDEA.
   User: Konstantin
   Date: 17.09.2016
@@ -12,13 +13,14 @@
     <title>${book.name}</title>
 </head>
 <body>
-<h2>${book.name}</h2>
-<p><a href="/booklist"> Назад к списку книг </a> </p>
+<h2><img src="/uploadFiles/somebook.png" width="50" height="50">${book.name}  </h2>
+
+<p><a href="/booklist"> Back to the list</a> </p>
     <form action="/update?id=${book.id}" method="POST" accept-charset="UTF-8">
         <br>Book name:
-        <br/><input style="width:400px;" name="name" type="text" required value="${book.name}" >
+        <br/><input style="width:400px;" name="name" type="text" required value="${book.name}">
         <br/>Description :
-        <br/><textarea style="width:400px; height:150px" name="description" type="textarea" required >${book.description}</textarea>
+        <br/><textarea style="width:400px; height:150px" name="description" type="textarea" required>${book.description}</textarea>
         <br/> Author :
         <br/><input style="width:400px;"  name="author" type="text" required value="${book.author}">
         <br/> Button :
@@ -31,7 +33,7 @@
 </form>
 
 <p></p>
-<img src="/imageServlet">
+<img src= "<%=("/"+DAO.getSaveDir() +"/").toString()%>${book.imagePath}">
 
 </body>
 </html>

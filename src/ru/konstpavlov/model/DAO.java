@@ -16,6 +16,13 @@ import java.util.List;
  */
 public class DAO {
 
+    // перменная для хранения пути где будут хранится файлы
+    private static final String SAVE_DIR = "uploadFiles";
+
+    // геттер для пути хранения файлов
+    public static String getSaveDir() {
+        return SAVE_DIR;
+    }
 
     public static Connection getConnection () throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -70,7 +77,7 @@ public class DAO {
 
         try (
                 Connection connection = getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT name,description,author FROM books WHERE id=?");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT books.name,books.description,books.author ,images.image FROM books LEFT OUTER JOIN  images ON books.id = images.book_id WHERE books.id=?");
                 )
         {
             preparedStatement.setInt(1,id);
@@ -79,10 +86,13 @@ public class DAO {
             while (resultSet.next())
             {
 
-                String name = resultSet.getString("name");
-                String desc = resultSet.getString("description");
-                String author = resultSet.getString("author");
+                String name = resultSet.getString("books.name");
+                String desc = resultSet.getString("books.description");
+                String author = resultSet.getString("books.author");
+                String imageName = resultSet.getString("images.image");
+
                 book = new Book(id,name,desc,author);
+                book.setImagePath(imageName);
             }
             return book;
         }
@@ -105,34 +115,15 @@ public class DAO {
     public static void addImagetoBook(int id, String appPath, String fileName) throws SQLException, ClassNotFoundException, IOException {
 
         try(Connection connection = getConnection();
-            PreparedStatement preparedStatement= connection.prepareStatement("INSERT INTO images (name,image,id) VALUES (?,?,?)");
+            PreparedStatement preparedStatement= connection.prepareStatement("INSERT INTO images (image,book_id) VALUES (?,?)");
             )
         {
-            File file = new File(appPath + File.separator+fileName);
-            FileInputStream fileInputStream = new FileInputStream(file);
             preparedStatement.setString(1,fileName);
-            preparedStatement.setBinaryStream(2,fileInputStream,(int) file.length());
-            preparedStatement.setInt(3,id);
+            preparedStatement.setInt(2,id);
             preparedStatement.executeUpdate();
-            fileInputStream.close();
-            file.delete();
+
             }
 
     }
 
-
-    public static InputStream getImage(int id) throws SQLException, ClassNotFoundException {
-        try(Connection connection = getConnection();
-            PreparedStatement preparedStatement= connection.prepareStatement("SELECT  image FROM images WHERE id=?");
-        ) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-            {
-                return resultSet.getBinaryStream(1);
-            }
-        }
-
-        return null;
-    }
 }

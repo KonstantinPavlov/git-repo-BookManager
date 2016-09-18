@@ -8,10 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add new book</title>
 </head>
 <body>
-<p><a href="/booklist"> Назад к списку книг </a> </p>
+<p><a href="/booklist"> Back to the list</a> </p>
 
 <table border="3" >
     <form action="/add" method="POST" accept-charset="UTF-8">
@@ -28,7 +28,7 @@
         <p></p>
         <tr >
             <td colspan="2">Description :
-                <textarea style="width:500px; height:100px" name="description" type="text" required> </textarea>
+                <textarea style="width:500px; height:100px" name="description" type="text" required></textarea>
             </td>
         </tr>
         <tr>

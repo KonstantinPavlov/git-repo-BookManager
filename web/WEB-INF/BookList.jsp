@@ -15,8 +15,15 @@
 <body>
 <h1>Book manager </h1>
 
-<a href="/addNew"> <img src="Add.png" width="40" height="40"> Add new Book</a>
+<a href="/addNew"> <img src="add.png" width="50" height="50"> Add new Book</a>
 <table border="1">
+    <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Author</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
 <c:forEach items="${books}" var="book">
 <tr>
 
