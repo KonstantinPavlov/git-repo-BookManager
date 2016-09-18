@@ -15,7 +15,26 @@
 <body>
 <h1>Book manager </h1>
 
-<a href="/addNew"> <img src="add.png" width="50" height="50"> Add new Book</a>
+<a href="/addNew"> <img src="add.png" width="50" height="50">  Add new Book</a>
+<p> </p>
+<form action="/booklist" method="GET" accept-charset="UTF-8">
+    <p>Search by:</p>
+
+    <c:choose>
+    <c:when test="${whatSearch=='author'}">
+        <input type="radio" name="search" value="name"> Name<Br>
+        <input type="radio" name="search" value="author" checked> Author<Br>
+    </c:when>
+    <c:otherwise>
+        <input type="radio" name="search" value="name" checked> Name<Br>
+        <input type="radio" name="search" value="author"> Author<Br>
+    </c:otherwise>
+    </c:choose>
+
+    <p><input name="searchValue" type="text"  value="${searchValue}">
+    <input type="submit" value="Search Book" > <a href="/booklist">Очистить поиск</a> </p>
+</form>
+
 <table border="1">
     <tr>
         <td>Name</td>
@@ -42,10 +61,6 @@
 </tr>
 </c:forEach>
 </table>
-<p> </p>
-<form action="/booklist" method="GET" accept-charset="UTF-8">
-    <input name="name" type="text"  value="${bookName}">
-    <input type="submit" value="Search Book" >
 </form>
 </body>
 </html>

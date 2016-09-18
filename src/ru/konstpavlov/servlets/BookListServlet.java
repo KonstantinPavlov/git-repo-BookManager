@@ -28,10 +28,12 @@ public class BookListServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        String name = request.getParameter("name");
-        request.setAttribute("bookName",name);
+        String name = request.getParameter("searchValue");
+        String whatSearch =request.getParameter("search");
+        request.setAttribute("searchValue",name);
+        request.setAttribute("whatSearch",whatSearch);
         try {
-            request.setAttribute("books", DAO.getData(name));
+            request.setAttribute("books", DAO.getData(name,whatSearch));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
