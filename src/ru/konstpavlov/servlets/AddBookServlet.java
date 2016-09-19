@@ -12,6 +12,9 @@ import java.sql.SQLException;
 
 /**
  * Created by Konstantin on 17.09.2016.
+ *
+ * Сервлет получающий данные для добавления новой книги в базу
+ *
  */
 @WebServlet(name = "AddBookServlet",urlPatterns = "/add")
 public class AddBookServlet extends HttpServlet {

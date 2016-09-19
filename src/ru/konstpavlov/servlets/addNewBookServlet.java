@@ -9,6 +9,9 @@ import java.io.IOException;
 
 /**
  * Created by Konstantin on 17.09.2016.
+ *
+ * Сервлет для вызова jsp страницы по добавлению данных по новой книге
+ *
  */
 @WebServlet(name = "addNewBookServlet", urlPatterns = "/addNew")
 public class addNewBookServlet extends HttpServlet {

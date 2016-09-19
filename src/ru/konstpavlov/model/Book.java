@@ -4,23 +4,25 @@ package ru.konstpavlov.model;
  * Created by Konstantin on 17.09.2016.
  *
  *
- *
+ * Основной класс для хранения данных о книгах,
  *
  */
 public class Book {
 
-    private int id;
-    private String imagePath;
-    private String name;
-    private String description;
-    private String author;
+    private int id; //  Ид книги из базы
+    private String imagePath; // наименование картинки - обложки
+    private String name;// название книги
+    private String description;// описание книги
+    private String author;// автор книги
 
 
+    // дефолтный конструктор
     public Book()
     {
 
     }
 
+    // еще  один конструктор , участвует в выоде списка книг
     public Book(int id, String name, String description, String author) {
         this.id = id;
         this.name = name;
@@ -28,6 +30,7 @@ public class Book {
         this.author = author;
     }
 
+    // геттеры и сеттеры полей, необходимы для правильной работы jsp страниц
     public int getId() {
         return id;
     }

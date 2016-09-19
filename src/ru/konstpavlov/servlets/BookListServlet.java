@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * Created by Konstantin on 17.09.2016.
  *
  *
- *
+ * основной сервлет - для отображения списка книг , с парсером отборов и параметров пересылаемых с jsp  старницы
  */
 @WebServlet(name = "BookListServlet",urlPatterns = "/booklist")
 public class BookListServlet extends HttpServlet {

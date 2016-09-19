@@ -12,6 +12,9 @@ import java.sql.SQLException;
 
 /**
  * Created by Konstantin on 17.09.2016.
+ *
+ * Сервлет для обновления данных по книге
+ *
  */
 @WebServlet(name = "UpdateBookServlet",urlPatterns = "/update")
 public class UpdateBookServlet extends HttpServlet {

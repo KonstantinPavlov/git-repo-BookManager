@@ -13,7 +13,7 @@ import java.sql.SQLException;
 /**
  * Created by Konstantin on 17.09.2016.
  *
- *
+ *  Сервлет для удаления книги
  *
  */
 @WebServlet(name = "DeleteBookServlet",urlPatterns = "/delete")

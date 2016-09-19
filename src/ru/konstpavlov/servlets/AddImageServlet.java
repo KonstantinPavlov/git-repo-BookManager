@@ -17,6 +17,10 @@ import java.util.UUID;
 
 /**
  * Created by Konstantin on 17.09.2016.
+ *
+ *
+ * Сервлет добавляющий данные по картинкам в базу
+ *
  */
 @WebServlet(name = "AddImageServlet" ,urlPatterns = "/addimage")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB

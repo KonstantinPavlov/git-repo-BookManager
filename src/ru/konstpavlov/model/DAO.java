@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Konstantin on 17.09.2016.
  *
  *
- *
+ * Основной класс связи с базой данных и преборазования данных в класс Book
  */
 public class DAO {
 
@@ -29,10 +29,13 @@ public class DAO {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/bookmanager","root","root");
     }
 
+    // метод возвращающий коллекцию книг с отборами -
     public static List<Book> getData(String searchString,String whatSearch) throws SQLException, ClassNotFoundException {
 
         String prepStatText="";
         boolean hasParamets=false;
+
+        // проверяем наличие параметра - поиска
         if (searchString ==null )
         {
              prepStatText = "SELECT id,name,description,author FROM books";
@@ -46,6 +49,7 @@ public class DAO {
             hasParamets=true;
         }
 
+        //  конструкция try with resources - автоматически закрывает коннект к базе после блок с фигурными скобками
         try (
                 Connection connection = getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(prepStatText);
@@ -53,7 +57,7 @@ public class DAO {
         {
             if (hasParamets)
             {
-                preparedStatement.setString(1,"%"+searchString+"%");
+                preparedStatement.setString(1,"%"+searchString+"%"); // устанавливаем праметр в обрамлении % - специфика запроса на SQl для ключегово слова LIKE - для поиска всевозможных вхождений стркои поиска
             }
             ResultSet resultSet = preparedStatement.executeQuery();
             ArrayList<Book> books = new ArrayList<>();
@@ -69,6 +73,7 @@ public class DAO {
         }
     }
 
+    // метод по давблению книги в базу , не проверяет наличие такой книги
     public static void addBook(String name, String description, String author) throws SQLException, ClassNotFoundException {
 
         try(Connection connection = getConnection();
@@ -81,6 +86,7 @@ public class DAO {
 
     }
 
+    // метод по удалению записи из базы по id
     public static void deleteBook(int id) throws SQLException, ClassNotFoundException {
 
         try(Connection connection = getConnection();
@@ -92,6 +98,7 @@ public class DAO {
 
     }
 
+    // метод для получения данных по конкретной книге с левым соединением к таблице хранящей информацию по привязанным картинкам
     public static Object getBook(int id) throws SQLException, ClassNotFoundException {
 
         try (
@@ -117,7 +124,7 @@ public class DAO {
         }
 
     }
-
+    // метод по обновлению данных по книге в базе
     public static void updateBook(int id,String name, String description, String author) throws SQLException, ClassNotFoundException {
 
         try(Connection connection = getConnection();
@@ -130,7 +137,7 @@ public class DAO {
             preparedStatement.executeUpdate();}
 
     }
-
+    // метод по добавлению картинки в связанную таблицу - для хранения имен картинок
     public static void addImagetoBook(int id, String appPath, String fileName) throws SQLException, ClassNotFoundException, IOException {
 
         try(Connection connection = getConnection();
