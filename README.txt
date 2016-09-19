@@ -13,3 +13,6 @@
 
 Дополнительные настройки сервера Tomcat :
 http://blog.eqlbin.ru/2010/05/apache-tomcat.html
+
+небольшой обзор возможностей и интерфейсной части приложения по ссылке (doc файл): 
+http://dropmefiles.com/ST77w
