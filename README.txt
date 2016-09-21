@@ -1,4 +1,6 @@
 # git-repo-BookManager
+Проект с использованием Sring MVC  https://github.com/KonstantinPavlov/git-repo-BookManager-SpringMVC
+
 Задание для компании MASTERDATA
 
 Создать электронную библиотеку с простейшим web-интерфейсом, позволяющим:
@@ -16,3 +18,5 @@ http://blog.eqlbin.ru/2010/05/apache-tomcat.html
 
 небольшой обзор возможностей и интерфейсной части приложения по ссылке (doc файл): 
 http://dropmefiles.com/ST77w
+
+Тот же 
