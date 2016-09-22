@@ -1,5 +1,5 @@
 # git-repo-BookManager
-Проект с использованием Sring MVC  https://github.com/KonstantinPavlov/git-repo-BookManager-SpringMVC
+Проект с использованием Spring MVC  https://github.com/KonstantinPavlov/git-repo-BookManager-SpringMVC
 
 Задание для компании MASTERDATA
 
